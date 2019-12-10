@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/intro">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/auth_logo"
+                style="@style/auth_logo"/>
+
+            <LinearLayout
+                android:id="@+id/heading_text_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@id/auth_logo"
+                android:layout_marginBottom="50dp">
+
+                <TextView
+                    style="@style/auth_heading_text"
+                    android:text="@string/auth_heading"/>
+
+                <TextView
+                    style="@style/auth_sub_heading_text"
+                    android:text="@string/auth_sub_heading"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/login_reg_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/heading_text_container"
+                android:weightSum="2"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/d_14"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/auth_login_button"
+                    style="@style/auth_login_reg_button"
+                    android:layout_marginRight="@dimen/d_12"
+                    android:layout_marginLeft="@dimen/d_24"
+                    android:layout_marginStart="@dimen/d_24"
+                    android:layout_marginEnd="@dimen/d_12"
+                    android:text="@string/login"/>
+
+                <Button
+                    android:id="@+id/auth_register_button"
+                    style="@style/auth_login_reg_button"
+                    android:layout_marginLeft="@dimen/d_12"
+                    android:layout_marginStart="@dimen/d_12"
+                    android:layout_marginRight="@dimen/d_24"
+                    android:layout_marginEnd="@dimen/d_24"
+                    android:text="@string/daftar"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/auth_fb_login_button"
+                style="@style/auth_social_login_button"
+                android:background="@drawable/auth_fb_login_button"
+                android:textColor="@color/colorPrimary"
+                android:drawableLeft="@drawable/ic_facebook_f"
+                android:drawableStart="@drawable/ic_facebook_f"
+                android:layout_below="@id/login_reg_container"
+                android:layout_marginBottom="@dimen/d_14"
+                android:text="@string/login_menggunakan_facebook"/>
+
+            <Button
+                android:id="@+id/auth_google_login_button"
+                style="@style/auth_social_login_button"
+                android:background="@drawable/auth_google_login_button"
+                android:textColor="@color/colorTextPrimary"
+                android:drawableLeft="@drawable/ic_google"
+                android:drawableStart="@drawable/ic_google"
+                android:layout_below="@id/auth_fb_login_button"
+                android:text="@string/login_menggunakan_google"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/intro_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/intro">
+        <ImageView
+            style="@style/intro_image"/>
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "85381784831",
+    "firebase_url": "https://kurir-cc1a0.firebaseio.com",
+    "project_id": "kurir-cc1a0",
+    "storage_bucket": "kurir-cc1a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85381784831:android:a2c6b21f5e49f7a8fd18ca",
+        "android_client_info": {
+          "package_name": "com.vjtechsolution.kurir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85381784831-qtor32uc237gca6trtk7tnnperppnm9l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-APWbTeQL6cGS1xdzGlyqxykBwQnYA8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85381784831-qtor32uc237gca6trtk7tnnperppnm9l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
