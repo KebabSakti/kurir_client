@@ -7,4 +7,24 @@
     <string name="daftar">Daftar</string>
     <string name="login_menggunakan_facebook">Login menggunakan facebook</string>
     <string name="login_menggunakan_google">Login menggunakan google</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="masukkan_nomor_hp_anda_yang_sudah_terdaftar">Masukkan nomor hp anda yang sudah terdaftar</string>
+    <string name="_62">+62</string>
+    <string name="nomor_hp">Nomor Hp</string>
+    <string name="kirim">Kirim</string>
+    <string name="isi_kolom_berikut_untuk_mendaftar">Isi kolom berikut untuk mendaftar</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="contoh_john_snow">Contoh. John Snow</string>
+    <string name="email">Email</string>
+    <string name="contoh_john_snow_winterfell_com">Contoh. john.snow@winterfell.com</string>
+    <string name="jenis_kelamin">Jenis Kelamin</string>
+    <string name="pria">Pria</string>
+    <string name="wanita">Wanita</string>
+
+    <!-- FB -->
+    <string name="facebook_app_id">2498859123665438</string>
+    <string name="fb_login_protocol_scheme">fb2498859123665438</string>
+
 </resources>
