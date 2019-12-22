@@ -81,6 +81,12 @@
 
             </LinearLayout>
 
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/auth_fb_login_button_gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
             <Button
                 android:id="@+id/auth_fb_login_button"
                 style="@style/auth_social_login_button"
@@ -92,6 +98,15 @@
                 android:layout_marginBottom="@dimen/d_14"
                 android:text="@string/login_menggunakan_facebook"/>
 
+            <ProgressBar
+                android:id="@+id/f_progress"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:layout_below="@id/login_reg_container"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"/>
+
             <Button
                 android:id="@+id/auth_google_login_button"
                 style="@style/auth_social_login_button"
@@ -101,6 +116,15 @@
                 android:drawableStart="@drawable/ic_google"
                 android:layout_below="@id/auth_fb_login_button"
                 android:text="@string/login_menggunakan_google"/>
+
+            <ProgressBar
+                android:id="@+id/g_progress"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:layout_below="@id/auth_fb_login_button"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 

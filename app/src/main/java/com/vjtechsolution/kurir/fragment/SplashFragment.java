@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.vjtechsolution.kurir.R;
 
 
@@ -20,13 +22,12 @@ import com.vjtechsolution.kurir.R;
  */
 public class SplashFragment extends Fragment {
 
-    View v;
-    NavController navController;
+    private NavController navController;
+    private FirebaseAuth firebaseAuth;
 
     public SplashFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,12 +39,21 @@ public class SplashFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        v = view;
-        navController = Navigation.findNavController(v);
+        navController = Navigation.findNavController(view);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
+                () -> {
+                    if(firebaseUser != null) {
+                        navController.navigate(R.id.action_splashFragment_to_homeFragment);
+                    } else {
                         navController.navigate(R.id.action_splashFragment_to_authFragment);
                     }
                 }, 2000);
