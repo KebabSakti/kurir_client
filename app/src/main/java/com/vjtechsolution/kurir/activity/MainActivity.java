@@ -25,12 +25,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if(destination.getId() == R.id.splashFragment || destination.getId() == R.id.authFragment || destination.getId() == R.id.validationFragment) {
+            if(destination.getId() == R.id.splashFragment || destination.getId() == R.id.authFragment) {
                 toolbar.setVisibility(View.GONE);
                 //bottomNavigationView.setVisibility(View.GONE);
             } else if(destination.getId() == R.id.homeFragment){
                 toolbar.setVisibility(View.GONE);
                 //show bottom nav only
+            } else if(destination.getId() == R.id.validationFragment){
+                toolbar.setVisibility(View.VISIBLE);
+                //show toolbar only
             } else {
                 toolbar.setVisibility(View.VISIBLE);
                 //show both

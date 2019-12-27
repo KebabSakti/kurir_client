@@ -7,6 +7,7 @@
     <color name="colorTextSecondary">#AFAFAF</color>
     <color name="colorSecondary">#4D88FF</color>
     <color name="colorRed">#FE5858</color>
+    <color name="colorHint">#D8D8D8</color>
     <color name="facebook">#4267B2</color>
     <color name="google">#FCFCFC</color>
 </resources>

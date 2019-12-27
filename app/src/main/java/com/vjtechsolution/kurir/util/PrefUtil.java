@@ -4,10 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class PrefUtil {
-    /**
-     * Storing API Key in shared preferences to
-     * add it in header part of every retrofit request
-     */
+
     public PrefUtil() {
     }
 
@@ -15,13 +12,13 @@ public class PrefUtil {
         return context.getSharedPreferences("APP_PREF", Context.MODE_PRIVATE);
     }
 
-    public static void storeApiKey(Context context, String apiKey) {
+    public static void storeCustomerCity(Context context, String value) {
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
-        editor.putString("API_KEY", apiKey);
+        editor.putString("CUSTOMER_CITY", value);
         editor.apply();
     }
 
-    public static String getApiKey(Context context) {
-        return getSharedPreferences(context).getString("API_KEY", null);
+    public static String getCustomerCity(Context context) {
+        return getSharedPreferences(context).getString("CUSTOMER_CITY", null);
     }
 }

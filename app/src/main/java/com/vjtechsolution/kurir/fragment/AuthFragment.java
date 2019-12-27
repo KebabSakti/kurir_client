@@ -1,11 +1,15 @@
 package com.vjtechsolution.kurir.fragment;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +43,27 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.vjtechsolution.kurir.R;
+import com.vjtechsolution.kurir.util.PrefUtil;
+
+import java.util.List;
+
+import io.nlopez.smartlocation.SmartLocation;
+import io.nlopez.smartlocation.location.config.LocationAccuracy;
+import io.nlopez.smartlocation.location.config.LocationParams;
+import io.nlopez.smartlocation.rx.ObservableFactory;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AuthFragment extends Fragment implements View.OnClickListener {
+public class AuthFragment extends Fragment implements View.OnClickListener, EasyPermissions.PermissionCallbacks {
 
     private View v;
     private Context context;
@@ -60,9 +79,10 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
     private FirebaseUser currentUser, prevUser;
     private CallbackManager callbackManager;
     private LoginManager loginManager;
+    private CompositeDisposable disposable;
     private static final int google_intent_rc = 1;
 
-    private static final String TAG = "TAG";
+    private static final String TAG = "firebase";
 
     private AlertDialog.Builder builder;
     private AlertDialog dialog;
@@ -88,9 +108,44 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
 
         //bind view etc
         initView();
-
         //auth
         initAuth();
+        //check permission
+        checkPermission();
+    }
+
+    private void checkPermission() {
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+        if(EasyPermissions.hasPermissions(context, permissions)){
+            Log.d("permission", "Permission already accepted");
+            getLocation();
+        } else {
+            EasyPermissions.requestPermissions(activity, "Permission", 1, permissions);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        Log.d("permission", "Permission Granted :"+perms);
+        getLocation();
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        Log.d("permission", "Permission Denied :"+perms);
+
+        // (Optional) Check whether the user denied any permissions and checked "NEVER ASK AGAIN."
+        // This will display a dialog directing them to enable the permission in app settings.
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
     }
 
     private void initView() {
@@ -108,6 +163,7 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
         google.setOnClickListener(this);
 
         builder = new AlertDialog.Builder(activity);
+        disposable = new CompositeDisposable();
     }
 
     private void initAuth() {
@@ -171,30 +227,6 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
                 startActivityForResult(signInIntent, google_intent_rc);
                 break;
         }
-    }
-
-    private void showGProgress() {
-        google.setEnabled(false);
-        google.setText("");
-        gProgress.setVisibility(View.VISIBLE);
-    }
-
-    private void hideGProgress() {
-        google.setEnabled(true);
-        google.setText(R.string.login_menggunakan_google);
-        gProgress.setVisibility(View.GONE);
-    }
-
-    private void showFProgress() {
-        facebook.setEnabled(false);
-        facebook.setText("");
-        fProgress.setVisibility(View.VISIBLE);
-    }
-
-    private void hideFProgress() {
-        facebook.setEnabled(true);
-        facebook.setText(R.string.login_menggunakan_facebook);
-        fProgress.setVisibility(View.GONE);
     }
 
     @Override
@@ -269,6 +301,52 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
         navController.navigate(R.id.action_authFragment_to_homeFragment);
     }
 
+    private void getLocation() {
+        LocationParams.Builder locationConfig = new LocationParams.Builder()
+                .setAccuracy(LocationAccuracy.HIGH)
+                .setDistance(0)
+                .setInterval(1000);
+        SmartLocation.LocationControl smartLocation = SmartLocation.with(context)
+                .location()
+                .continuous()
+                .config(locationConfig.build());
+
+        Observable<Location> locationObservable = ObservableFactory.from(smartLocation);
+        disposable.add(
+                locationObservable
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .observeOn(Schedulers.io())
+                        .subscribeWith(new DisposableObserver<Location>() {
+                            @Override
+                            public void onNext(Location location) {
+                                Log.d("location_update", location.getLatitude() +", "+ location.getLongitude());
+
+                                SmartLocation.with(context).geocoding()
+                                        .reverse(location, (location1, list) -> {
+                                            for (Address address : list) {
+                                                Log.d("location_update", address.getAddressLine(0));
+                                                Log.d("location_update", address.getCountryName());
+                                                Log.d("location_update", address.getLocality());
+                                                Log.d("location_update", address.getSubAdminArea());
+
+                                                PrefUtil.storeCustomerCity(context, address.getSubAdminArea());
+                                            }
+                                        });
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.d("location_update", e.getLocalizedMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                Log.d("location_update", "COMPLETE");
+                            }
+                        })
+        );
+    }
+
     private void showLoginErrorDialog(String msg) {
         msg = msg.equals("") ? "Cek kondisi jaringan anda atau coba gunakan akun dan metode lain untuk login":msg;
         builder
@@ -276,5 +354,35 @@ public class AuthFragment extends Fragment implements View.OnClickListener {
              .setMessage(msg);
         dialog = builder.create();
         dialog.show();
+    }
+
+    private void showGProgress() {
+        google.setEnabled(false);
+        google.setText("");
+        gProgress.setVisibility(View.VISIBLE);
+    }
+
+    private void hideGProgress() {
+        google.setEnabled(true);
+        google.setText(R.string.login_menggunakan_google);
+        gProgress.setVisibility(View.GONE);
+    }
+
+    private void showFProgress() {
+        facebook.setEnabled(false);
+        facebook.setText("");
+        fProgress.setVisibility(View.VISIBLE);
+    }
+
+    private void hideFProgress() {
+        facebook.setEnabled(true);
+        facebook.setText(R.string.login_menggunakan_facebook);
+        fProgress.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        disposable.dispose();
     }
 }

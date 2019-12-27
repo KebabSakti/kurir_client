@@ -81,4 +81,35 @@
     </style>
     <!-- AUTH PAGE END -->
 
+    <!-- LAYOUT -->
+    <style name="parent_layout">
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:paddingTop">?attr/actionBarSize</item>
+    </style>
+    <style name="margin_start_end_24">
+        <item name="android:layout_marginStart">@dimen/d_24</item>
+        <item name="android:layout_marginLeft">@dimen/d_24</item>
+        <item name="android:layout_marginEnd">@dimen/d_24</item>
+        <item name="android:layout_marginRight">@dimen/d_24</item>
+    </style>
+    <style name="heading_big_dark" parent="margin_start_end_24">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:ems">13</item>
+    </style>
+    <style name="heading_input" parent="margin_start_end_24">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="input_auth">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textColorHint">@color/colorHint</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:ems">15</item>
+        <item name="android:background">@null</item>
+    </style>
+    <!-- LAYOUT END -->
+
 </resources>

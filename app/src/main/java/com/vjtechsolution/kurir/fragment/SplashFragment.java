@@ -52,10 +52,18 @@ public class SplashFragment extends Fragment {
         new android.os.Handler().postDelayed(
                 () -> {
                     if(firebaseUser != null) {
-                        navController.navigate(R.id.action_splashFragment_to_homeFragment);
+                        try {
+                            navController.navigate(R.id.action_splashFragment_to_homeFragment);
+                        } catch (IllegalArgumentException e) {
+                            //
+                        }
                     } else {
-                        navController.navigate(R.id.action_splashFragment_to_authFragment);
+                        try {
+                            navController.navigate(R.id.action_splashFragment_to_authFragment);
+                        } catch (IllegalArgumentException e) {
+                            //
+                        }
                     }
-                }, 2000);
+                }, 3000);
     }
 }
