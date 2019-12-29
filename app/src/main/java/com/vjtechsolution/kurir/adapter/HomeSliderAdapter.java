@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.smarteist.autoimageslider.SliderViewAdapter;
-import com.squareup.picasso.Picasso;
 import com.vjtechsolution.kurir.R;
 
 public class HomeSliderAdapter extends SliderViewAdapter<HomeSliderAdapter.SliderAdapterVH> {
@@ -28,28 +28,27 @@ public class HomeSliderAdapter extends SliderViewAdapter<HomeSliderAdapter.Slide
     public void onBindViewHolder(SliderAdapterVH viewHolder, int position) {
         switch (position) {
             case 0:
-                Picasso.get()
+                Glide.with(viewHolder.itemView)
                         .load("https://images.pexels.com/photos/218983/pexels-photo-218983.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-                        //.resize(0, 200)
-                        //.centerCrop()
+                        .centerCrop()
                         .into(viewHolder.imageViewBackground);
                 break;
             case 1:
-                Picasso.get()
+                Glide.with(viewHolder.itemView)
                         .load("https://images.pexels.com/photos/747964/pexels-photo-747964.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260")
-                        //.centerCrop()
+                        .centerCrop()
                         .into(viewHolder.imageViewBackground);
                 break;
             case 2:
-                Picasso.get()
+                Glide.with(viewHolder.itemView)
                         .load("https://images.pexels.com/photos/929778/pexels-photo-929778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-                        //.centerCrop()
+                        .centerCrop()
                         .into(viewHolder.imageViewBackground);
                 break;
             default:
-                Picasso.get()
+                Glide.with(viewHolder.itemView)
                         .load("https://images.pexels.com/photos/218983/pexels-photo-218983.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-                        //.centerCrop()
+                        .centerCrop()
                         .into(viewHolder.imageViewBackground);
                 break;
 

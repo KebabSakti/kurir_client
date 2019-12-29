@@ -46,7 +46,6 @@
                 android:text="Khusus buat kamu yang baru mendaftar, gunakan kode voucher BETA untuk dapatkan potongan harga hingga 2000 rupiah"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />

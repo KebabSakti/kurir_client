@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -39,6 +41,8 @@ public class HomeFragment extends Fragment {
     private Activity activity;
     private Boolean exit = false;
     private SliderView sliderView;
+    private ScrollView scrollView;
+    private View scrollbarShadow;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -86,6 +90,8 @@ public class HomeFragment extends Fragment {
 
         Button logout = view.findViewById(R.id.auth_logout);
         sliderView = view.findViewById(R.id.image_slider_container);
+        scrollView = view.findViewById(R.id.home_scroll_view);
+        scrollbarShadow = activity.findViewById(R.id.toolbar_shadow);
 
         logout.setOnClickListener(view1 -> {
             //firebase logout
@@ -99,6 +105,19 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
 
             activity.finish();
+        });
+
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if(scrollView != null){
+                    if(scrollView.getScrollY() > 0){
+                        scrollbarShadow.setVisibility(View.VISIBLE);
+                    } else {
+                        scrollbarShadow.setVisibility(View.GONE);
+                    }
+                }
+            }
         });
 
         //slider

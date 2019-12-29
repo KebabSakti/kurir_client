@@ -12,12 +12,13 @@
     <ScrollView
         android:id="@+id/home_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         android:layout_centerInParent="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingBottom="?attr/actionBarSize">
 
             <com.smarteist.autoimageslider.SliderView
@@ -43,10 +44,11 @@
                 app:sliderStartAutoCycle="true" />
 
             <RelativeLayout
-                android:id="@+id/packet_container"
+                android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
                 android:paddingTop="@dimen/d_20"
                 android:paddingBottom="@dimen/d_20"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +67,7 @@
                         android:layout_height="60dp"
                         android:layout_marginStart="24dp"
                         android:layout_marginLeft="24dp"
-                        android:src="@drawable/ic_box_open"
+                        android:src="@drawable/ic_work"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,7 +91,7 @@
                         android:layout_marginLeft="24dp"
                         android:layout_marginEnd="60dp"
                         android:layout_marginRight="60dp"
-                        android:maxLines="5"
+                        android:lines="3"
                         android:text="Kirim paket dengan harga terjangkau dan kurir yang handal, atur waktu pengiriman dan tujuan pengiriman ke beberapa alamat sekaligus"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
@@ -110,11 +112,9 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/ride_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorRed"
@@ -122,7 +122,8 @@
                 android:paddingBottom="@dimen/d_20"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/packet_container">
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -135,7 +136,7 @@
                         android:layout_height="60dp"
                         android:layout_marginStart="24dp"
                         android:layout_marginLeft="24dp"
-                        android:src="@drawable/ic_biking"
+                        android:src="@drawable/ic_directions_bike"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -159,7 +160,7 @@
                         android:layout_marginLeft="24dp"
                         android:layout_marginEnd="60dp"
                         android:layout_marginRight="60dp"
-                        android:maxLines="5"
+                        android:lines="3"
                         android:text="Perlu transportasi yang bisa di andalkan, bebas dari kemacetan, berpengalaman dan biaya murah? Kuy langsung di order"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp"
@@ -180,77 +181,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:paddingTop="@dimen/d_20"
-                android:paddingBottom="@dimen/d_20"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ride_container">
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true">
-
-                    <ImageView
-                        android:id="@+id/icon_food"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginLeft="24dp"
-                        android:src="@drawable/ic_hamburger"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/food_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Pesan Makan"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/icon_food"
-                        app:layout_constraintTop_toBottomOf="@+id/icon_food" />
-
-                    <TextView
-                        android:id="@+id/food_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginEnd="60dp"
-                        android:layout_marginRight="60dp"
-                        android:maxLines="5"
-                        android:text="Laper tapi mager? Order aja lewat sini, rider kami pasti senang mengantarkan makanan kalian sampai ke tujuan, cukup bayar ongkir"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/food_title" />
-
-                    <ImageView
-                        android:id="@+id/food_trigger"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:src="@drawable/ic_keyboard_arrow_right"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
             </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
