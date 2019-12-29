@@ -1,6 +1,8 @@
 package com.vjtechsolution.kurir.fragment;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -20,7 +23,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.smarteist.autoimageslider.IndicatorAnimations;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 import com.vjtechsolution.kurir.R;
+import com.vjtechsolution.kurir.activity.MainActivity;
+import com.vjtechsolution.kurir.adapter.HomeSliderAdapter;
 
 
 /**
@@ -28,6 +36,9 @@ import com.vjtechsolution.kurir.R;
  */
 public class HomeFragment extends Fragment {
 
+    private Activity activity;
+    private Boolean exit = false;
+    private SliderView sliderView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -45,6 +56,22 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         NavController navController = Navigation.findNavController(view);
+        activity = getActivity();
+
+        // This callback will only be called when MyFragment is at least Started.
+        OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                Toast.makeText(activity, "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
+                if(exit){
+                    activity.finish();
+                }
+                exit = true;
+                exitRule();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
 
         // Configure goole sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -58,6 +85,8 @@ public class HomeFragment extends Fragment {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         Button logout = view.findViewById(R.id.auth_logout);
+        sliderView = view.findViewById(R.id.image_slider_container);
+
         logout.setOnClickListener(view1 -> {
             //firebase logout
             firebaseAuth.signOut();
@@ -66,16 +95,27 @@ public class HomeFragment extends Fragment {
             //google logout
             googleSignInClient.signOut();
 
-            user.unlink(user.getProviderId())
-                    .addOnCompleteListener(getActivity(), task -> {
-                        if(task.isSuccessful()){
-                            Toast.makeText(getContext(), "SUKSES UNLINK", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), "GAGAL UNLINK", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            Intent intent = new Intent(activity, MainActivity.class);
+            startActivity(intent);
 
-            navController.navigate(R.id.action_homeFragment_to_authFragment);
+            activity.finish();
         });
+
+        //slider
+        startImageSlider();
+    }
+
+    private void startImageSlider() {
+        sliderView.setSliderAdapter(new HomeSliderAdapter(getContext()));
+        sliderView.setIndicatorAnimation(IndicatorAnimations.WORM);
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        sliderView.setScrollTimeInSec(5);
+        sliderView.setIndicatorSelectedColor(getResources().getColor(R.color.colorAccent));
+        sliderView.startAutoCycle();
+    }
+
+    private void exitRule() {
+        new android.os.Handler().postDelayed(
+                () -> exit = false, 2000);
     }
 }

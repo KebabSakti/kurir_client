@@ -14,29 +14,49 @@ import com.vjtechsolution.kurir.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    private NavController navController;
+    private AppBarConfiguration appBarConfiguration;
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        final Toolbar toolbar = findViewById(R.id.toolbar);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
+        appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.splashFragment,
+                R.id.authFragment
+                /*
+                R.id.homeFragment,
+                R.id.orderFragment,
+                R.id.inboxFragment,
+                R.id.accountFragment*/
+        ).build();
+
+        //BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        toolbar = findViewById(R.id.toolbar);
+
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
+        //NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if(destination.getId() == R.id.splashFragment || destination.getId() == R.id.authFragment) {
+                //hide toolbar and navbar
                 toolbar.setVisibility(View.GONE);
                 //bottomNavigationView.setVisibility(View.GONE);
             } else if(destination.getId() == R.id.homeFragment){
-                toolbar.setVisibility(View.GONE);
                 //show bottom nav only
-            } else if(destination.getId() == R.id.validationFragment){
+                toolbar.setVisibility(View.VISIBLE);
+                //bottomNavigationView.setVisibility(View.VISIBLE);
+            } else if(destination.getId() == R.id.validationFragment || destination.getId() == R.id.loginFragment || destination.getId() == R.id.registerFragment){
                 toolbar.setVisibility(View.VISIBLE);
                 //show toolbar only
+               // bottomNavigationView.setVisibility(View.GONE);
             } else {
-                toolbar.setVisibility(View.VISIBLE);
-                //show both
+                //toolbar.setVisibility(View.VISIBLE);
+                //bottomNavigationView.setVisibility(View.VISIBLE);
             }
         });
     }

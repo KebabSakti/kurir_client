@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/second_nav_host"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.vjtechsolution.kurir.fragment.HomeFragment"
+        android:label=" "
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_trackPacket"
+            app:destination="@id/trackPacket"
+            app:enterAnim="@anim/push_up_in"
+            app:exitAnim="@anim/push_down_out"
+            app:popEnterAnim="@anim/push_up_in"
+            app:popExitAnim="@anim/push_down_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.vjtechsolution.kurir.fragment.OrderFragment"
+        android:label="Orderan"
+        tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.vjtechsolution.kurir.ChatFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.vjtechsolution.kurir.fragment.InboxFragment"
+        android:label="Inbox"
+        tools:layout="@layout/fragment_inbox" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.vjtechsolution.kurir.fragment.AccountFragment"
+        android:label="Akun"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/trackPacket"
+        android:name="com.vjtechsolution.kurir.TrackPacket"
+        android:label="Lacak Paket"
+        tools:layout="@layout/fragment_track_packet" />
+
+</navigation>

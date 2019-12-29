@@ -158,7 +158,14 @@ public class LoginFragment extends Fragment {
 
                             @Override
                             public void onError(Throwable e) {
+                                hideProgress();
+
                                 Log.d(NETWORK_TAG, e.getLocalizedMessage());
+                                dialogBuilder
+                                        .setTitle("Error")
+                                        .setMessage("Koneksi bermasalah, coba beberapa saat lagi");
+                                alertDialog = dialogBuilder.create();
+                                alertDialog.show();
                             }
                         })
         );

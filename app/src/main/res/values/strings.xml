@@ -34,4 +34,10 @@
     <string name="validation_hint">_ _ _ _</string>
     <string name="kirim_ulang">Kirim Ulang</string>
     <string name="masukkan_no_hp_terdaftar">Masukkan no hp terdaftar</string>
+    <string name="beranda">Beranda</string>
+    <string name="orderan">Orderan</string>
+    <string name="inbox">Inbox</string>
+    <string name="akun">Akun</string>
+    <string name="chat">Chat</string>
+    <string name="lacak_paket_kamu_di_sini">Lacak paket kamu di sini</string>
 </resources>

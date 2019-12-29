@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     private static Retrofit retrofit = null;
-    private static int REQUEST_TIMEOUT = 60;
+    private static int REQUEST_TIMEOUT = 30;
     private static OkHttpClient okHttpClient;
 
     public static Retrofit getClient(Context context) {
@@ -39,7 +39,7 @@ public class ApiClient {
                 .writeTimeout(REQUEST_TIMEOUT, TimeUnit.SECONDS);
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
 
         httpClient.addInterceptor(interceptor);
 

@@ -4,6 +4,7 @@ package com.vjtechsolution.kurir.fragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -28,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.vjtechsolution.kurir.activity.BaseActivity;
 import com.vjtechsolution.kurir.R;
 
 import java.util.Locale;
@@ -184,7 +186,11 @@ public class ValidationFragment extends Fragment {
                         FirebaseUser user = task.getResult().getUser();
                         Toast.makeText(context, "logged in user id: "+user.getUid(), Toast.LENGTH_LONG).show();
 
-                        navController.navigate(R.id.action_validationFragment_to_homeFragment);
+                        //navController.navigate(R.id.action_validationFragment_to_homeFragment);
+                        Intent intent = new Intent(activity, BaseActivity.class);
+                        startActivity(intent);
+
+                        activity.finish();
                     } else {
                         // Sign in failed, display a message and update the UI
                         Log.w(TAG, "signInWithCredential:failure", task.getException());

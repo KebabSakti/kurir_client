@@ -1,6 +1,8 @@
 package com.vjtechsolution.kurir.fragment;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import androidx.navigation.Navigation;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.vjtechsolution.kurir.activity.BaseActivity;
 import com.vjtechsolution.kurir.R;
 
 
@@ -24,6 +27,8 @@ public class SplashFragment extends Fragment {
 
     private NavController navController;
     private FirebaseAuth firebaseAuth;
+
+    private Activity activity;
 
     public SplashFragment() {
         // Required empty public constructor
@@ -40,6 +45,7 @@ public class SplashFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+        activity = getActivity();
     }
 
     @Override
@@ -53,7 +59,11 @@ public class SplashFragment extends Fragment {
                 () -> {
                     if(firebaseUser != null) {
                         try {
-                            navController.navigate(R.id.action_splashFragment_to_homeFragment);
+                            //navController.navigate(R.id.action_splashFragment_to_homeFragment);
+                            Intent intent = new Intent(activity, BaseActivity.class);
+                            startActivity(intent);
+
+                            activity.finish();
                         } catch (IllegalArgumentException e) {
                             //
                         }

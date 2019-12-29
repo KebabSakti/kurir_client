@@ -42,6 +42,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.vjtechsolution.kurir.activity.BaseActivity;
 import com.vjtechsolution.kurir.R;
 import com.vjtechsolution.kurir.util.PrefUtil;
 
@@ -298,7 +299,11 @@ public class AuthFragment extends Fragment implements View.OnClickListener, Easy
     }
 
     private void loginSuccess() {
-        navController.navigate(R.id.action_authFragment_to_homeFragment);
+        //navController.navigate(R.id.action_authFragment_to_homeFragment);
+        Intent intent = new Intent(activity, BaseActivity.class);
+        startActivity(intent);
+
+        activity.finish();
     }
 
     private void getLocation() {
@@ -308,7 +313,7 @@ public class AuthFragment extends Fragment implements View.OnClickListener, Easy
                 .setInterval(1000);
         SmartLocation.LocationControl smartLocation = SmartLocation.with(context)
                 .location()
-                .continuous()
+                .oneFix()
                 .config(locationConfig.build());
 
         Observable<Location> locationObservable = ObservableFactory.from(smartLocation);

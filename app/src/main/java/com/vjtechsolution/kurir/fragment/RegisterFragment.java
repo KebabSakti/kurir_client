@@ -151,8 +151,8 @@ public class RegisterFragment extends Fragment {
                         public void onSuccess(Customer customer) {
                             if(customer.getName() == null){
                                 //add new customer to database
-                                //addCustomer();
-                                sentCodeToPhone();
+                                addCustomer();
+                                //sentCodeToPhone();
                             } else {
                                 hideProgress();
                                 //alert("Nomor Sudah Terdaftar", "Gunakan nomor lain atau login menggunakan nomor ini");
