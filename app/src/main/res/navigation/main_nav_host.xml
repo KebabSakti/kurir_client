@@ -72,4 +72,43 @@
         android:name="com.vjtechsolution.kurir.fragment.ValidationFragment"
         android:label=" "
         tools:layout="@layout/fragment_validation"/>
+    <navigation
+        android:id="@+id/loggedInGraph"
+        app:startDestination="@id/testingFragment" >
+        <fragment
+            android:id="@+id/testingFragment"
+            android:name="com.vjtechsolution.kurir.TestingFragment"
+            android:label="fragment_testing"
+            tools:layout="@layout/fragment_testing" >
+            <action
+                android:id="@+id/action_testingFragment_pop2"
+                app:popUpTo="@id/testingFragment"
+                app:popUpToInclusive="true" />
+        </fragment>
+        <fragment
+            android:id="@+id/testingOrderFragment"
+            android:name="com.vjtechsolution.kurir.TestingOrderFragment"
+            android:label="fragment_testing_order"
+            tools:layout="@layout/fragment_testing_order" >
+            <action
+                android:id="@+id/action_testingOrderFragment_pop2"
+                app:popUpTo="@id/testingOrderFragment"
+                app:popUpToInclusive="true" />
+        </fragment>
+        <fragment
+            android:id="@+id/testingChatFragment"
+            android:name="com.vjtechsolution.kurir.TestingChatFragment"
+            android:label="fragment_testing_chat"
+            tools:layout="@layout/fragment_testing_chat" >
+            <action
+                android:id="@+id/action_testingChatFragment_pop"
+                app:popUpTo="@id/testingChatFragment"
+                app:popUpToInclusive="true" />
+        </fragment>
+    </navigation>
+    <action
+        android:id="@+id/action_global_loggedInGraph2"
+        app:destination="@id/loggedInGraph"
+        app:popUpTo="@id/main_nav_host"
+        app:popUpToInclusive="false" />
 </navigation>

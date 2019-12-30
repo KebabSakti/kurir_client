@@ -18,10 +18,11 @@ import com.vjtechsolution.kurir.R;
  */
 public class OrderFragment extends Fragment {
 
+    private View v;
+
     public OrderFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,5 +34,6 @@ public class OrderFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        v = view;
     }
 }

@@ -1,4 +1,4 @@
-package com.vjtechsolution.kurir.object;
+package com.vjtechsolution.kurir.singleton;
 
 import android.app.Activity;
 import android.content.Context;

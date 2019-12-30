@@ -12,13 +12,16 @@ public class PrefUtil {
         return context.getSharedPreferences("APP_PREF", Context.MODE_PRIVATE);
     }
 
-    public static void storeCustomerCity(Context context, String value) {
+    public static void storeCustomerPreference(Context context, String city, String email, String name, String phone) {
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
-        editor.putString("CUSTOMER_CITY", value);
+        editor.putString("CUSTOMER_CITY", city);
+        editor.putString("CUSTOMER_EMAIL", email);
+        editor.putString("CUSTOMER_NAME", name);
+        editor.putString("CUSTOMER_PHONE", phone);
         editor.apply();
     }
 
-    public static String getCustomerCity(Context context) {
-        return getSharedPreferences(context).getString("CUSTOMER_CITY", null);
+    public static String getCustomerPref(Context context, String keyword) {
+        return getSharedPreferences(context).getString(keyword, null);
     }
 }

@@ -10,4 +10,8 @@
     <color name="colorHint">#D8D8D8</color>
     <color name="facebook">#4267B2</color>
     <color name="google">#FCFCFC</color>
+    <color name="dark_overlay">#2C2C2C</color>
+    <color name="redAlt">#f19239</color>
+    <color name="redAltMore">#f3a459</color>
+    <color name="line">#F5F5F5</color>
 </resources>

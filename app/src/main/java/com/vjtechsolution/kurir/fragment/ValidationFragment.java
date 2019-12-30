@@ -1,6 +1,7 @@
 package com.vjtechsolution.kurir.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -122,6 +123,7 @@ public class ValidationFragment extends Fragment {
 
     private void initCountdown() {
         new CountDownTimer(60000, 1000) {
+            @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
                 resendValidation.setText("00:"+ String.format((Locale) null, "%02d", millisUntilFinished / 1000));
             }

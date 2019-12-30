@@ -12,6 +12,12 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.6"
+        android:background="@color/dark_overlay" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -25,12 +31,12 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="@color/colorPrimary"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:text="Promo"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,10 +44,10 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:lines="3"
                 android:text="Khusus buat kamu yang baru mendaftar, gunakan kode voucher BETA untuk dapatkan potongan harga hingga 2000 rupiah"
                 android:textColor="@color/colorPrimary"

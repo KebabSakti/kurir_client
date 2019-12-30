@@ -118,6 +118,11 @@
         <item name="android:ems">15</item>
         <item name="android:background">@null</item>
     </style>
+    <style name="clickcable">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
     <!-- LAYOUT END -->
 
 </resources>

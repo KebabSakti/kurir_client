@@ -2,11 +2,11 @@ package com.vjtechsolution.kurir.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,7 +23,7 @@ public class BaseActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
 
     private TextView trackPacket;
-    private RelativeLayout container;
+    private ConstraintLayout container;
     private View toolbarShadow;
 
     @Override
@@ -43,63 +43,43 @@ public class BaseActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         toolbar = findViewById(R.id.toolbar);
         trackPacket = findViewById(R.id.track_packet);
-        container = findViewById(R.id.toolbar_content_container);
+        container = findViewById(R.id.home_toolbar);
         toolbarShadow = findViewById(R.id.toolbar_shadow);
 
         NavigationUI.setupWithNavController(toolbar, navController, appbarConfiguration);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-
-            switch (destination.getId())
-            {
-                case R.id.homeFragment:
-                    homeNav();
-                    break;
-
-                case R.id.orderFragment:
-                    mainNav("Orderan");
-                    break;
-
-                case R.id.chatFragment:
-                    mainNav("Chat");
-                    break;
-
-                case R.id.inboxFragment:
-                    mainNav("Inbox");
-                    break;
-
-                case R.id.accountFragment:
-                    mainNav("Akun");
-                    break;
-
-                case R.id.trackPacket:
-                    secondaryNav("Lacak Paket");
-                    break;
+            if(destination.getId() == R.id.homeFragment){
+                mainNav();
+            } else if(destination.getId() == R.id.trackPacket) {
+                childNav();
+            } else {
+                secondaryNav();
             }
         });
 
-        trackPacket.setOnClickListener(view -> {
-            navController.navigate(R.id.action_homeFragment_to_trackPacket);
-        });
+        trackPacket.setOnClickListener(view -> navController.navigate(R.id.action_homeFragment_to_trackPacket));
     }
 
-    public void homeNav(){
-        toolbar.setTitle("");
+    public void mainNav(){
+        toolbar.setVisibility(View.GONE);
         container.setVisibility(View.VISIBLE);
+        toolbarShadow.setVisibility(View.INVISIBLE);
         bottomNavigationView.setVisibility(View.VISIBLE);
-        toolbarShadow.setVisibility(View.GONE);
     }
 
-    public void mainNav(String title){
-        container.setVisibility(View.GONE);
-        bottomNavigationView.setVisibility(View.VISIBLE);
+    public void secondaryNav(){
+        toolbar.setVisibility(View.VISIBLE);
         toolbarShadow.setVisibility(View.VISIBLE);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        container.setVisibility(View.GONE);
     }
 
-    public void secondaryNav(String title){
+    public void childNav(){
+        toolbar.setVisibility(View.VISIBLE);
+        toolbarShadow.setVisibility(View.VISIBLE);
         container.setVisibility(View.GONE);
         bottomNavigationView.setVisibility(View.GONE);
-        toolbarShadow.setVisibility(View.VISIBLE);
     }
 }

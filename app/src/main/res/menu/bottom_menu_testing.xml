@@ -2,24 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/testingFragment"
         android:icon="@drawable/ic_home_fa"
         android:title="@string/beranda" />
     <item
-        android:id="@+id/orderFragment"
+        android:id="@+id/testingOrderFragment"
         android:icon="@drawable/ic_clipboard_list_fa"
         android:title="@string/orderan" />
     <item
-        android:id="@+id/chatFragment"
+        android:id="@+id/testingChatFragment"
         android:icon="@drawable/ic_comment_dots_fa"
         android:title="@string/chat" />
-    <item
-        android:id="@+id/inboxFragment"
-        android:icon="@drawable/ic_mail"
-        android:title="@string/inbox" />
-    <item
-        android:id="@+id/accountFragment"
-        android:icon="@drawable/ic_user_fa"
-        android:title="@string/akun" />
-
 </menu>

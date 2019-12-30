@@ -17,6 +17,13 @@
             app:exitAnim="@anim/push_down_out"
             app:popEnterAnim="@anim/push_up_in"
             app:popExitAnim="@anim/push_down_out" />
+        <action
+            android:id="@+id/action_homeFragment_to_packetFragment"
+            app:destination="@id/packetFragment"
+            app:enterAnim="@anim/push_left_in"
+            app:exitAnim="@anim/push_right_out"
+            app:popEnterAnim="@anim/push_left_in"
+            app:popExitAnim="@anim/push_right_out" />
     </fragment>
     <fragment
         android:id="@+id/orderFragment"
@@ -40,8 +47,13 @@
         tools:layout="@layout/fragment_account" />
     <fragment
         android:id="@+id/trackPacket"
-        android:name="com.vjtechsolution.kurir.TrackPacket"
+        android:name="com.vjtechsolution.kurir.TrackPacketFragment"
         android:label="Lacak Paket"
         tools:layout="@layout/fragment_track_packet" />
+    <fragment
+        android:id="@+id/packetFragment"
+        android:name="com.vjtechsolution.kurir.PacketFragment"
+        android:label="Kirim Paket"
+        tools:layout="@layout/fragment_packet" />
 
 </navigation>

@@ -2,13 +2,11 @@ package com.vjtechsolution.kurir.fragment;
 
 
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -19,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -29,7 +26,6 @@ import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 import com.vjtechsolution.kurir.R;
-import com.vjtechsolution.kurir.activity.MainActivity;
 import com.vjtechsolution.kurir.adapter.HomeSliderAdapter;
 
 
@@ -38,11 +34,17 @@ import com.vjtechsolution.kurir.adapter.HomeSliderAdapter;
  */
 public class HomeFragment extends Fragment {
 
+    private Context context;
+    private View v = null;
     private Activity activity;
     private Boolean exit = false;
     private SliderView sliderView;
     private ScrollView scrollView;
     private View scrollbarShadow;
+    private NavController navController;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser currentUser;
+    private GoogleSignInClient googleSignInClient;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -59,8 +61,24 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavController navController = Navigation.findNavController(view);
+
+        //init
+        init(view);
+        //firebase init
+        firebaseInit();
+        //slider
+        startImageSlider();
+    }
+
+
+    private void init(View view) {
         activity = getActivity();
+        context = getContext();
+        v = view;
+        navController = Navigation.findNavController(v);
+        sliderView = v.findViewById(R.id.image_slider_container);
+        scrollView = v.findViewById(R.id.home_scroll_view);
+        scrollbarShadow = activity.findViewById(R.id.toolbar_shadow);
 
         // This callback will only be called when MyFragment is at least Started.
         OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
@@ -77,58 +95,36 @@ public class HomeFragment extends Fragment {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
 
+        //add toolbar shadow on scroll
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            if(scrollView != null){
+                if(scrollView.getScrollY() > 0){
+                    scrollbarShadow.setVisibility(View.VISIBLE);
+                } else {
+                    scrollbarShadow.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    private void firebaseInit() {
         // Configure goole sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.firebase_web_client_id_for_google))
                 .requestEmail()
                 .build();
-        GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(view.getContext(), gso);
+        googleSignInClient = GoogleSignIn.getClient(v.getContext(), gso);
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
-        Button logout = view.findViewById(R.id.auth_logout);
-        sliderView = view.findViewById(R.id.image_slider_container);
-        scrollView = view.findViewById(R.id.home_scroll_view);
-        scrollbarShadow = activity.findViewById(R.id.toolbar_shadow);
-
-        logout.setOnClickListener(view1 -> {
-            //firebase logout
-            firebaseAuth.signOut();
-            //facebook logout
-            LoginManager.getInstance().logOut();
-            //google logout
-            googleSignInClient.signOut();
-
-            Intent intent = new Intent(activity, MainActivity.class);
-            startActivity(intent);
-
-            activity.finish();
-        });
-
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                if(scrollView != null){
-                    if(scrollView.getScrollY() > 0){
-                        scrollbarShadow.setVisibility(View.VISIBLE);
-                    } else {
-                        scrollbarShadow.setVisibility(View.GONE);
-                    }
-                }
-            }
-        });
-
-        //slider
-        startImageSlider();
+        firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
     }
 
     private void startImageSlider() {
         sliderView.setSliderAdapter(new HomeSliderAdapter(getContext()));
         sliderView.setIndicatorAnimation(IndicatorAnimations.WORM);
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-        sliderView.setScrollTimeInSec(5);
+        sliderView.setScrollTimeInSec(30);
         sliderView.setIndicatorSelectedColor(getResources().getColor(R.color.colorAccent));
         sliderView.startAutoCycle();
     }
@@ -137,4 +133,5 @@ public class HomeFragment extends Fragment {
         new android.os.Handler().postDelayed(
                 () -> exit = false, 2000);
     }
+
 }

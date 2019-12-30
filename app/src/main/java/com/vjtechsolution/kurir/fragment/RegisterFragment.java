@@ -151,8 +151,8 @@ public class RegisterFragment extends Fragment {
                         public void onSuccess(Customer customer) {
                             if(customer.getName() == null){
                                 //add new customer to database
-                                addCustomer();
-                                //sentCodeToPhone();
+                                //addCustomer();
+                                sentCodeToPhone();
                             } else {
                                 hideProgress();
                                 //alert("Nomor Sudah Terdaftar", "Gunakan nomor lain atau login menggunakan nomor ini");
@@ -173,7 +173,7 @@ public class RegisterFragment extends Fragment {
     private void addCustomer() {
         disposable.add(
                 authApi
-                    .newCustomer(textName.getText().toString(), sex, "62"+textPhone.getText().toString(), PrefUtil.getCustomerCity(context))
+                    .newCustomer(textName.getText().toString(), sex, "62"+textPhone.getText().toString(), PrefUtil.getCustomerPref(context, "CUSTOMER_CITY"))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new DisposableSingleObserver<Customer>() {

@@ -13,10 +13,10 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TrackPacket extends Fragment {
+public class TrackPacketFragment extends Fragment {
 
 
-    public TrackPacket() {
+    public TrackPacketFragment() {
         // Required empty public constructor
     }
 
